@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pilot Toolbox | Adventure Aviator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Grotesk:wght@300;700&display=swap');
+        body { background-color: #ffffff; color: #000000; font-family: 'Inter', sans-serif; }
+        .calc-card { border: 1px solid #f0f0f0; border-radius: 2rem; padding: 40px; background: #fff; transition: all 0.4s ease; }
+        .calc-card:hover { border-color: #2563eb; }
+        input { border: 1px solid #eee; padding: 15px; border-radius: 8px; width: 100%; font-weight: bold; }
+    </style>
+</head>
+<body class="p-12 max-w-6xl mx-auto">
+    <header class="mb-20 border-b pb-12 flex justify-between items-end">
+        <div>
+            <h1 class="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600 mb-4 italic">The Pilot Toolbox // V1.0</h1>
+            <h2 class="text-5xl font-black tracking-tighter uppercase italic">Mission Utility.</h2>
+        </div>
+        <img src="logo_hd.png" class="h-12" alt="AA Logo">
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24">
+        <!-- Density Altitude -->
+        <div class="calc-card">
+            <h3 class="text-xl font-bold uppercase mb-8">Density Altitude Calculator</h3>
+            <div class="space-y-6">
+                <div><label class="text-[10px] font-bold uppercase text-gray-400">Airport Elevation (ft)</label><input type="number" id="elev" value="0"></div>
+                <div><label class="text-[10px] font-bold uppercase text-gray-400">Current Temp (°C)</label><input type="number" id="temp" value="15"></div>
+                <div><label class="text-[10px] font-bold uppercase text-gray-400">Altimeter (inHg)</label><input type="number" id="altim" value="29.92"></div>
+                <button onclick="calcDA()" class="w-full bg-black text-white py-4 rounded-full text-xs font-black uppercase tracking-widest">Calculate Magnitude</button>
+                <div class="mt-8 text-center"><div class="text-3xl font-black text-blue-600" id="da-res">---</div><p class="text-[9px] text-gray-400 uppercase tracking-widest mt-2">Predicted Performance Altitude</p></div>
+            </div>
+        </div>
+
+        <!-- Crosswind -->
+        <div class="calc-card">
+            <h3 class="text-xl font-bold uppercase mb-8">Crosswind Component</h3>
+            <div class="space-y-6">
+                <div><label class="text-[10px] font-bold uppercase text-gray-400">Runway Heading</label><input type="number" id="rwy" value="36"></div>
+                <div><label class="text-[10px] font-bold uppercase text-gray-400">Wind Direction</label><input type="number" id="wdir" value="330"></div>
+                <div><label class="text-[10px] font-bold uppercase text-gray-400">Wind Speed (kts)</label><input type="number" id="wspd" value="15"></div>
+                <button onclick="calcXwind()" class="w-full bg-black text-white py-4 rounded-full text-xs font-black uppercase tracking-widest">Check Crosswind</button>
+                <div class="mt-8 text-center"><div class="text-3xl font-black text-blue-600" id="xw-res">---</div><p class="text-[9px] text-gray-400 uppercase tracking-widest mt-2">Knots of Lateral Drift</p></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcDA() {
+            const elev = parseFloat(document.getElementById('elev').value);
+            const temp = parseFloat(document.getElementById('temp').value);
+            const altim = parseFloat(document.getElementById('altim').value);
+            const pa = elev + (29.92 - altim) * 1000;
+            const isa = 15 - (pa/1000 * 2);
+            const da = pa + (120 * (temp - isa));
+            document.getElementById('da-res').innerText = Math.round(da) + " ft";
+        }
+        function calcXwind() {
+            const rwy = parseFloat(document.getElementById('rwy').value) * 10;
+            const wdir = parseFloat(document.getElementById('wdir').value);
+            const wspd = parseFloat(document.getElementById('wspd').value);
+            const angle = Math.abs(rwy - wdir);
+            const xwind = wspd * Math.sin(angle * Math.PI / 180);
+            document.getElementById('xw-res').innerText = Math.round(xwind) + " kts";
+        }
+    </script>
+</body>
+</html>
