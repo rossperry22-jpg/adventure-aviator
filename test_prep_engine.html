@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FAA Test Prep Engine | Adventure Aviator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Grotesk:wght@300;700&display=swap');
+        body { background-color: #050505; color: #f4f4f5; font-family: 'Inter', sans-serif; }
+        .quiz-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); }
+        .option-btn { border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+        .option-btn:hover { border-color: #2563eb; background: rgba(37, 99, 235, 0.05); }
+        .option-btn.correct { border-color: #16a34a; background: rgba(22, 163, 74, 0.1); }
+        .option-btn.wrong { border-color: #dc2626; background: rgba(220, 38, 38, 0.1); }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-4xl mx-auto pt-12">
+        <header class="mb-12 border-b border-white/10 pb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-[10px] font-black uppercase tracking-[0.5em] text-blue-600 mb-2 italic">Spectacular Test Prep // V1.0</h1>
+                <h2 class="text-4xl font-black uppercase tracking-tighter italic">Source Code Engine</h2>
+            </div>
+            <div id="progress" class="text-xs font-mono text-gray-500">Q 1/5</div>
+        </header>
+
+        <div id="quiz-container" class="quiz-card p-12 rounded-[2rem]">
+            <div id="question" class="text-2xl font-bold mb-10 leading-tight">Initializing Magnitude...</div>
+            <div id="options" class="grid grid-cols-1 gap-4"></div>
+            <div id="feedback" class="mt-10 p-6 rounded-xl hidden"></div>
+            <button id="next-btn" class="mt-12 w-full bg-blue-600 text-white py-5 rounded-full text-xs font-black uppercase tracking-[0.3em] hidden">Next Question</button>
+        </div>
+
+        <div id="result-container" class="hidden text-center">
+            <h3 class="text-6xl font-black mb-8 italic uppercase">Course Ready.</h3>
+            <p id="score-text" class="text-xl text-gray-400 mb-12"></p>
+            <button onclick="location.reload()" class="bg-white text-black px-12 py-5 rounded-full text-xs font-black uppercase tracking-[0.3em]">Restart Engine</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                q: "What is the primary factor that causes an airplane to stall?",
+                o: ["Excessive airspeed", "Exceeding the critical angle of attack", "Insufficient engine power"],
+                a: 1,
+                f: "A stall occurs when the wing exceeds its critical angle of attack, causing the smooth airflow to detach. Speed is a scalar; AOA is a vector."
+            },
+            {
+                q: "When trading altitude for airspeed in a descent, you are managing what?",
+                o: ["Static stability", "Potential vs Kinetic energy", "Engine thermal efficiency"],
+                a: 1,
+                f: "Energy management is the art of balancing potential energy (altitude) and kinetic energy (speed). Suave pilots always know their budget."
+            },
+            {
+                q: "The 'Rudder' primarily controls which axis of flight?",
+                o: ["Pitch", "Roll", "Yaw"],
+                a: 2,
+                f: "The rudder controls the yaw axis. Coordination is the fusion of roll and yaw to maintain axial magnitude."
+            },
+            {
+                q: "What medical certificate is required for a Private Pilot?",
+                o: ["First Class", "Second Class", "Third Class"],
+                a: 2,
+                f: "A Third Class medical is the baseline for private pilots. It verifies the biological vessel is ready for flight."
+            },
+            {
+                q: "In non-towered operations, who is the primarily responsible for separation?",
+                o: ["ATC", "The Pilot in Command", "The Flight School"],
+                a: 1,
+                f: "The PIC is the ultimate authority. Situational awareness is your only protection in the silent hive."
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            const data = quizData[currentIdx];
+            document.getElementById('progress').innerText = `Q ${currentIdx + 1}/${quizData.length}`;
+            document.getElementById('question').innerText = data.q;
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('next-btn').classList.add('hidden');
+
+            data.o.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn p-6 rounded-xl text-left text-sm font-medium uppercase tracking-wide';
+                btn.innerText = opt;
+                btn.onclick = () => selectOption(i);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectOption(idx) {
+            const data = quizData[currentIdx];
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.disabled = true);
+
+            if (idx === data.a) {
+                buttons[idx].classList.add('correct');
+                score++;
+            } else {
+                buttons[idx].classList.add('wrong');
+                buttons[data.a].classList.add('correct');
+            }
+
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = `<p class="text-xs text-gray-400 italic">"${data.f}"</p>`;
+            feedback.classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        document.getElementById('next-btn').onclick = () => {
+            currentIdx++;
+            if (currentIdx < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        };
+
+        function showResult() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+            document.getElementById('score-text').innerText = `Your Magnitude: ${(score/quizData.length)*100}% | ${score}/${quizData.length} Correct.`;
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
