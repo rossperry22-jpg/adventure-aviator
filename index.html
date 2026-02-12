@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adventure Aviator | Intuition-First Ground School</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Grotesk:wght@300;700&display=swap');
         
@@ -13,24 +15,25 @@
             color: #000000; 
             font-family: 'Inter', sans-serif; 
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         
         h1, h2, h3, .heading { font-family: 'Space Grotesk', sans-serif; }
         
         .module-card {
             border: 1px solid #f0f0f0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             background: #ffffff;
         }
 
         .module-card:hover {
             border-color: #2563eb;
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.1);
+            transform: scale(1.02);
+            box-shadow: 0 40px 60px -15px rgba(37, 99, 235, 0.15);
         }
 
         .hero-bg {
-            background: radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.05), transparent);
+            background: radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.08), transparent);
         }
 
         .nav-link {
@@ -39,219 +42,148 @@
             text-transform: uppercase;
             letter-spacing: 0.2em;
             color: #999;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { color: #000; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #2563eb; }
+
+        .parallax-section {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
     </style>
 </head>
 <body class="bg-white">
 
-    <!-- AA Header -->
-    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md px-12 py-8 flex justify-between items-center border-b border-gray-100">
-        <div class="flex items-center gap-10">
-            <h1 class="text-xl font-black uppercase tracking-tighter italic text-blue-600">Adventure Aviator</h1>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl px-12 py-8 flex justify-between items-center border-b border-gray-100 shadow-sm">
+        <div class="flex items-center gap-12" data-aos="fade-right">
+            <img src="logo_hd.png" class="h-14" alt="Adventure Aviator">
             <div class="hidden lg:flex gap-8">
                 <a href="#journey" class="nav-link">The Journey</a>
                 <a href="#curriculum" class="nav-link">Curriculum</a>
-                <a href="test_prep_engine.html" class="nav-link">Test Prep</a>
+                <a href="test_prep_v2.html" class="nav-link text-blue-600">Test Engine</a>
             </div>
         </div>
-        <div class="flex items-center gap-8">
-            <div class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-6 py-2 rounded-full">Enroll Now</div>
+        <div class="flex items-center gap-8" data-aos="fade-left">
+            <div class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-8 py-3 rounded-full hover:bg-blue-600 transition cursor-pointer">Enroll Now</div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="pt-64 pb-32 px-12 md:px-24 hero-bg border-b border-gray-50">
-        <div class="max-w-5xl">
-            <div class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-8">Award-Winning Ground School // V1.0</div>
-            <h2 class="text-7xl md:text-9xl font-black tracking-tighter uppercase mb-12 leading-[0.9]">Master the <br><span class="italic text-gray-300">Physics.</span></h2>
-            <p class="text-2xl text-gray-400 font-light leading-relaxed max-w-3xl mb-16">
-                Outclassing the memorization model. We build intuitive pilots through energy management, angle of attack mastery, and high-magnitude visual training.
+    <!-- Hero -->
+    <header class="pt-64 pb-32 px-12 md:px-24 hero-bg border-b border-gray-50 min-h-screen flex items-center">
+        <div class="max-w-5xl" data-aos="fade-up" data-aos-duration="1000">
+            <div class="text-[10px] font-black uppercase tracking-[0.8em] text-blue-600 mb-10 italic">The Intuition-First Global Standard</div>
+            <h2 class="text-7xl md:text-[10rem] font-black tracking-tighter uppercase mb-12 leading-[0.8]">Fly <br><span class="italic text-gray-200">Differently.</span></h2>
+            <p class="text-2xl text-gray-400 font-light leading-relaxed max-w-2xl mb-20">
+                Stop memorizing for a test. Start understanding for a lifetime. 
+                Adventure Aviator uses high-magnitude visuals and architectural physics to build superior pilots.
             </p>
-            <div class="flex gap-8">
-                <button class="bg-black text-white px-16 py-6 text-xs font-black uppercase tracking-[0.3em] hover:bg-blue-600 transition shadow-2xl">Start Course // $247</button>
-                <a href="radio_pro_guide.md" class="border border-gray-200 px-16 py-6 text-xs font-black uppercase tracking-[0.3em] hover:bg-black hover:text-white transition flex items-center gap-3">
+            <div class="flex flex-wrap gap-8">
+                <button class="bg-black text-white px-20 py-8 text-xs font-black uppercase tracking-[0.4em] hover:bg-blue-600 transition shadow-2xl">Start Course // $247</button>
+                <a href="radio_pro_guide.md" class="border border-gray-200 px-20 py-8 text-xs font-black uppercase tracking-[0.4em] hover:bg-black hover:text-white transition flex items-center gap-3">
                     Free Radio Guide
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Spectacular Test Prep Promo -->
-    <section class="py-32 px-12 md:px-24 bg-blue-600 text-white overflow-hidden relative">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24">
-            <div class="flex-1">
-                <h3 class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-200 mb-8">Integrated Engine</h3>
-                <h4 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-8 italic">Spectacular <br>Test Prep.</h4>
-                <p class="text-xl text-blue-100 font-light leading-relaxed mb-12">
-                    Stop dreading the written. Our custom interactive engine ensures 95%+ scores by training your judgment, not your memory.
+    <!-- Value Proposition Section -->
+    <section class="py-48 px-12 md:px-24 bg-black text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-32">
+            <div class="flex-1" data-aos="fade-right">
+                <h3 class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-10">Why We Outclass</h3>
+                <h4 class="text-6xl md:text-8xl font-black tracking-tighter uppercase mb-10 leading-none">The Apex <br><span class="text-gray-700 italic">Engine.</span></h4>
+                <p class="text-xl text-gray-400 font-light leading-relaxed mb-16">
+                    Legacy ground schools focus on rote memory. We focus on **Magnitude and Direction**. 
+                    Our interactive test engine simulates the cognitive load of a cockpit, preparing you for real-world decisions.
                 </p>
-                <a href="test_prep_engine.html" class="inline-block bg-white text-blue-600 px-12 py-5 text-xs font-black uppercase tracking-[0.3em] hover:bg-black hover:text-white transition shadow-2xl">Try the Engine</a>
-            </div>
-            <div class="flex-1">
-                <div class="bg-black/20 p-12 rounded-[3rem] backdrop-blur-xl border border-white/10">
-                    <div class="text-4xl font-black italic mb-6">95%</div>
-                    <p class="text-sm font-bold uppercase tracking-widest text-blue-200">Average Student Magnitude</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detailed Module 00 Content -->
-    <section id="journey" class="py-48 px-12 md:px-24 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
-            <h3 class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-12 italic">Module 00: The Journey Ignition</h3>
-            <h2 class="text-5xl font-black uppercase tracking-tighter italic mb-16">Road to the Cockpit.</h2>
-            
-            <div class="space-y-24">
-                <!-- Eligibility -->
-                <div>
-                    <h4 class="text-2xl font-bold uppercase mb-6 border-l-4 border-blue-600 pl-8">1. The Prerequisites</h4>
-                    <p class="text-gray-500 leading-loose mb-8">
-                        Before you touch the yoke, you must meet the FAA's high-magnitude standards. 
-                        You must be at least **16 to solo** and **17 to earn the certificate**. You must be able to read, speak, 
-                        and understand English—the universal language of the sky. 
-                    </p>
-                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-                        <h5 class="text-xs font-black uppercase text-gray-400 mb-4 tracking-widest">Action Item: The Medical</h5>
-                        <p class="text-sm text-gray-500 font-normal">Find an Aviation Medical Examiner (AME). Secure your **Third Class Medical Certificate**. Without this, the journey stops before it starts.</p>
-                    </div>
-                </div>
-
-                <!-- Ground vs Flight -->
-                <div>
-                    <h4 class="text-2xl font-bold uppercase mb-6 border-l-4 border-blue-600 pl-8">2. The Dual-Track Engine</h4>
-                    <p class="text-gray-500 leading-loose mb-8">
-                        Becoming a pilot requires two simultaneous engines: **Ground School** and **Flight Training**. 
-                        While you fly to master coordination, Adventure Aviator handles the ground, ensuring your mind 
-                        is 10 miles ahead of the propeller.
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="p-8 border border-gray-200 rounded-2xl bg-white">
-                            <h5 class="font-black text-xs uppercase mb-4 tracking-widest text-blue-600">The Written</h5>
-                            <p class="text-[11px] text-gray-400 uppercase leading-relaxed font-bold">Pass the 60-question FAA Knowledge Test with a 70% or better. (Our goal: 95%).</p>
+                <div class="space-y-10">
+                    <div class="flex gap-8 border-l-2 border-blue-600 pl-10">
+                        <span class="text-4xl font-black italic text-blue-600">01</span>
+                        <div>
+                            <h5 class="text-lg font-bold uppercase mb-2">3D Physics Synthesis</h5>
+                            <p class="text-sm text-gray-500">Visualizing airflow and stalls in 4K resolution.</p>
                         </div>
-                        <div class="p-8 border border-gray-200 rounded-2xl bg-white">
-                            <h5 class="font-black text-xs uppercase mb-4 tracking-widest text-blue-600">The Checkride</h5>
-                            <p class="text-[11px] text-gray-400 uppercase leading-relaxed font-bold">A practical exam with a DPE. Prove you can fly the plane and make safe decisions.</p>
+                    </div>
+                    <div class="flex gap-8 border-l-2 border-blue-600 pl-10">
+                        <span class="text-4xl font-black italic text-blue-600">02</span>
+                        <div>
+                            <h5 class="text-lg font-bold uppercase mb-2">AR HUD Overlays</h5>
+                            <p class="text-sm text-gray-500">Training your eyes on his raw flight footage.</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Financials -->
-                <div>
-                    <h4 class="text-2xl font-bold uppercase mb-6 border-l-4 border-blue-600 pl-8">3. The Financial Blueprint</h4>
-                    <p class="text-gray-500 leading-loose mb-8">
-                        Magnitude requires investment. On average, a Private Pilot certificate costs between **$10,000 and $18,000**. 
-                        Adventure Aviator is designed to save you thousands by reducing flight hours through intuitive ground preparation.
-                    </p>
-                    <table class="w-full text-left text-sm text-gray-500">
-                        <tr class="border-b border-gray-100 font-black uppercase text-[10px] text-gray-400"><th class="py-4">Expense</th><th class="py-4">Estimate</th></tr>
-                        <tr class="border-b border-gray-100"><td class="py-4 font-medium">Aircraft Rental (40-60 hrs)</td><td class="py-4">$6,000 - $10,000</td></tr>
-                        <tr class="border-b border-gray-100"><td class="py-4 font-medium">Flight Instruction</td><td class="py-4">$3,000 - $5,000</td></tr>
-                        <tr class="border-b border-gray-100"><td class="py-4 text-blue-600 font-black italic">Adventure Aviator (Ground)</td><td class="py-4 text-blue-600 font-black italic">$247 (Fixed)</td></tr>
-                        <tr><td class="py-4 font-medium">FAA Exams & Gear</td><td class="py-4">$1,200</td></tr>
-                    </table>
-                </div>
-
-                <!-- The Pivot -->
-                <div class="bg-black text-white p-16 rounded-[3rem] text-center">
-                    <h4 class="text-4xl font-black uppercase tracking-tighter mb-8 italic text-blue-600">The Ignition Choice.</h4>
-                    <p class="text-gray-400 mb-12 font-light italic">
-                        "You can spend $300 an hour learning these concepts in a cockpit while burning fuel. <br>
-                        Or you can master them here, for the price of one flight lesson."
-                    </p>
-                    <button class="bg-blue-600 text-white px-16 py-6 text-xs font-black uppercase tracking-[0.4em] hover:bg-white hover:text-black transition shadow-2xl">Start Full Course // $247</button>
+            </div>
+            <div class="flex-1 w-full" data-aos="zoom-in" data-aos-delay="200">
+                <div class="aspect-square bg-gray-900 rounded-[4rem] p-12 border border-white/5 flex items-center justify-center">
+                    <img src="logo_hd.png" class="w-full opacity-30 grayscale contrast-125" alt="Logo Watermark">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 8 Module Preview -->
-    <section id="curriculum" class="py-32 px-12 md:px-24 max-w-[1600px] mx-auto border-b border-gray-50">
-        <div class="mb-24 flex justify-between items-end">
+    <section id="curriculum" class="py-48 px-12 md:px-24 max-w-[1600px] mx-auto border-b border-gray-50">
+        <div class="mb-32 flex justify-between items-end" data-aos="fade-up">
             <div>
                 <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-300 mb-4">The Intuition Syllabus</h3>
-                <h4 class="text-4xl font-black uppercase tracking-tighter italic">8 Modules to Mastery</h4>
+                <h4 class="text-5xl font-black uppercase tracking-tighter italic">8 Modules to Mastery</h4>
             </div>
-            <div class="text-[10px] font-black text-gray-200 uppercase tracking-widest">Enrollment Active</div>
+            <div class="text-[10px] font-black text-blue-600 uppercase tracking-widest border-b-2 border-blue-600 pb-2">Unlocked: Module 00</div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="module-grid">
-            <!-- Modules injected here -->
-        </div>
-    </section>
-
-    <!-- Checkride Sonic Archive -->
-    <section class="py-48 px-12 md:px-24 bg-[#fafafa]">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24">
-            <div class="flex-1">
-                <h3 class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-8">Memory Anchors</h3>
-                <h4 class="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-8 italic">Checkride <br>Sonic Archive.</h4>
-                <p class="text-xl text-gray-400 font-light leading-relaxed mb-12">
-                    Music is the fastest rail to memory. We include the original **Checkride** tracks ("More Right Rudder", "P-Factor Path", "ACS Grind") to anchor the physics into your subconscious.
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
-                        <img src="p_factor_diagram.png" class="w-full mb-8" alt="P-Factor Schematic">
-                        <div class="text-[10px] font-black uppercase text-gray-300 tracking-widest">P-Factor Blueprint</div>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
-                        <img src="acs_tolerance_diagram.png" class="w-full mb-8" alt="ACS Tolerance Diagram">
-                        <div class="text-[10px] font-black uppercase text-gray-300 tracking-widest">ACS Precision Grid</div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex-1 space-y-6">
-                <div class="p-8 bg-black text-white rounded-3xl flex items-center justify-between shadow-xl">
-                    <div>
-                        <div class="text-xs font-black uppercase tracking-widest text-blue-600 mb-1">Track 01</div>
-                        <div class="text-lg font-bold italic">MORE RIGHT RUDDER</div>
-                    </div>
-                    <div class="text-xs font-mono opacity-40">02:45 // 90 BPM</div>
-                </div>
-                <div class="p-8 bg-white border border-gray-100 rounded-3xl flex items-center justify-between">
-                    <div>
-                        <div class="text-xs font-black uppercase tracking-widest text-gray-400 mb-1">Track 02</div>
-                        <div class="text-lg font-bold italic uppercase">The ACS Grind</div>
-                    </div>
-                    <div class="text-xs font-mono opacity-40">03:30 // 94 BPM</div>
-                </div>
-                <div class="p-8 bg-white border border-gray-100 rounded-3xl flex items-center justify-between opacity-50">
-                    <div>
-                        <div class="text-xs font-black uppercase tracking-widest text-gray-400 mb-1">Track 03</div>
-                        <div class="text-lg font-bold italic">THE P-FACTOR PATH</div>
-                    </div>
-                    <div class="text-xs font-mono opacity-40">03:12 // 92 BPM</div>
-                </div>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12" id="module-grid">
+            <!-- Modules injected via JS with AOS -->
         </div>
     </section>
 
-    <footer class="p-24 text-center border-t border-gray-100">
-        <div class="text-[10px] font-black uppercase tracking-[1em] text-gray-200 mb-10 italic">Adventure Aviator // Intuition First</div>
-        <p class="text-[9px] text-gray-400 font-black uppercase tracking-widest">&copy; 2026 A Ross Chandler Production</p>
+    <!-- Footer -->
+    <footer class="p-32 text-center border-t border-gray-100 bg-gray-50">
+        <img src="logo_hd.png" class="h-20 mx-auto mb-16 grayscale opacity-20" alt="Footer Logo">
+        <div class="text-[10px] font-black uppercase tracking-[1.5em] text-gray-200 mb-10">Adventure Aviator // Magnitude Built</div>
+        <p class="text-[9px] text-gray-300 font-bold uppercase tracking-widest">&copy; 2026 Adventure Aviator • A Ross Chandler Production</p>
     </footer>
 
     <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out-quart',
+            once: true,
+            offset: 100
+        });
+
         const modules = [
-            { id: "01", title: "Control First", desc: "Primary vs secondary coordination. Rudder discipline and visual cues." },
+            { id: "01", title: "Control First", desc: "Primary vs secondary coordination. Mastery of the axial displacement." },
             { id: "02", title: "Angle of Attack", desc: "The lie of airspeed. Breaking stall fear with intuitive physics." },
-            { id: "03", title: "Energy Mgmt", desc: "Pitch + Power relationships. Trading altitude for kinetic potential." },
-            { id: "04", title: "Atmosphere", desc: "Wind behavior and density altitude. The air you fly through." },
-            { id: "05", title: "Intuitive Nav", desc: "Situational awareness over gadgets. Cross-country decision making." },
-            { id: "06", title: "Clear Airspace", desc: "Behavioral rules, not shapes. Talking to ATC with confidence." },
-            { id: "07", title: "Legal/PIC", desc: "The human side of flying. IMSAFE and personal minimums." },
-            { id: "08", title: "Checkride Mode", desc: "Oral exam mindset. Teach-it-back confidence for the ACS." }
+            { id: "03", title: "Energy Management", desc: "The pitch/power master relationship. Trading energy for survival." },
+            { id: "04", title: "The Atmosphere", desc: "Density altitude and wind fluid behavior. The air you fly through." },
+            { id: "05", title: "Intuitive Nav", desc: "Situational awareness over gadgets. Pilotage in the digital age." },
+            { id: "06", title: "Airspace Logic", desc: "Behavioral rules, not geometric shapes. Talking to ATC with suave." },
+            { id: "07", title: "PIC Psychology", desc: "The human side of flying. Personal minimums and the IMSAFE code." },
+            { id: "08", title: "Checkride Mode", desc: "Oral exam mindset. Confidence through absolute technical competence." }
         ];
 
         const grid = document.getElementById('module-grid');
-        modules.forEach(m => {
+        modules.forEach((m, idx) => {
             const card = document.createElement('div');
-            card.className = 'module-card p-10 rounded-3xl flex flex-col h-full';
+            card.className = 'module-card p-12 rounded-[2.5rem] flex flex-col h-full';
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', (idx % 4) * 100);
             card.innerHTML = `
-                <div class="text-4xl font-black text-blue-600/20 mb-8">${m.id}</div>
-                <h4 class="text-xl font-bold uppercase tracking-tight mb-4">${m.title}</h4>
-                <p class="text-sm text-gray-400 font-light leading-relaxed flex-1">${m.desc}</p>
-                <div class="mt-8 pt-6 border-t border-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-300">Phase 01 Locked</div>
+                <div class="text-5xl font-black text-blue-600/10 mb-10 italic">${m.id}</div>
+                <h4 class="text-2xl font-bold uppercase tracking-tighter mb-6">${m.title}</h4>
+                <p class="text-sm text-gray-400 font-normal leading-relaxed flex-1">${m.desc}</p>
+                <div class="mt-12 pt-8 border-t border-gray-50 flex justify-between items-center">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-gray-300">Phase 01 Locked</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
             `;
             grid.appendChild(card);
         });

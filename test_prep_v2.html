@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Source Code Engine | Adventure Aviator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Grotesk:wght@300;700&display=swap');
+        body { background-color: #050505; color: #f4f4f5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .engine-container { min-height: 100vh; display: flex; flex-direction: column; padding: 40px; }
+        .quiz-card { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); transition: all 0.5s ease; }
+        .option-btn { border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01); transition: all 0.2s ease; }
+        .option-btn:hover { border-color: #2563eb; background: rgba(37, 99, 235, 0.05); }
+        .option-btn.correct { border-color: #16a34a; background: rgba(22, 163, 74, 0.1); }
+        .option-btn.wrong { border-color: #dc2626; background: rgba(220, 38, 38, 0.1); }
+        .module-selector { transition: all 0.4s ease; }
+    </style>
+</head>
+<body>
+
+    <div class="engine-container">
+        <!-- Engine Header -->
+        <header class="flex justify-between items-center mb-12 border-b border-white/5 pb-10">
+            <div class="flex items-center gap-8">
+                <img src="logo_hd.png" class="h-12 grayscale brightness-200" alt="AA Logo">
+                <div>
+                    <h1 class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-1">Source Code Engine // V2.0</h1>
+                    <h2 id="current-module-title" class="text-3xl font-black uppercase tracking-tighter italic">Select Module</h2>
+                </div>
+            </div>
+            <div id="quiz-meta" class="hidden text-right">
+                <div id="progress-bar" class="w-64 h-1 bg-white/5 rounded-full mb-3"><div id="progress-fill" class="h-full bg-blue-600 transition-all duration-500" style="width: 0%"></div></div>
+                <div id="progress-text" class="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Initialization...</div>
+            </div>
+        </header>
+
+        <!-- Module Selector View -->
+        <main id="selector-view" class="flex-1 flex flex-col justify-center max-w-6xl mx-auto w-full">
+            <div class="mb-12">
+                <h3 class="text-xs font-black uppercase tracking-[0.4em] text-gray-600 mb-2">Authorized Syllabus Units:</h3>
+                <p class="text-xs text-gray-500 italic">Select a module to begin the high-magnitude assessment.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="module-list">
+                <!-- Modules injected via JS -->
+            </div>
+        </main>
+
+        <!-- Quiz View -->
+        <main id="quiz-view" class="flex-1 hidden max-w-4xl mx-auto w-full flex flex-col justify-center">
+            <div id="quiz-card" class="quiz-card p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                <div id="question-text" class="text-3xl font-bold mb-12 leading-tight">...</div>
+                <div id="options-grid" class="grid grid-cols-1 gap-4"></div>
+                <div id="feedback-area" class="mt-12 p-8 bg-blue-600/5 rounded-2xl border border-blue-600/10 hidden">
+                    <p id="feedback-text" class="text-gray-400 text-sm leading-relaxed italic"></p>
+                </div>
+                <button id="next-btn" class="hidden mt-12 w-full bg-blue-600 text-white py-6 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition shadow-xl">
+                    Deploy Next Question
+                </button>
+            </div>
+        </main>
+
+        <!-- Final Results View -->
+        <main id="result-view" class="flex-1 hidden flex flex-col justify-center items-center text-center">
+            <div class="text-xs font-black uppercase tracking-[0.8em] text-blue-600 mb-10">Module Finalized</div>
+            <h3 class="text-8xl font-black uppercase tracking-tighter italic mb-12">Magnitude: <span id="score-percent">0</span>%</h3>
+            <div class="flex gap-8">
+                <button onclick="location.reload()" class="bg-white text-black px-12 py-5 rounded-full text-xs font-black uppercase tracking-widest">Return to Syllabus</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const moduleData = {
+            "01": { 
+                title: "Control Comes First", 
+                questions: [
+                    { q: "During a climb, which control surface primarily counteracts P-factor?", o: ["Left Aileron", "Right Rudder", "Elevator Trim"], a: 1, f: "P-factor is strongest at high AOA. Descending blade on right produces more thrust, requiring Right Rudder." },
+                    { q: "What defines 'Coordinated Flight'?", o: ["Maintaining constant altitude", "Zero yaw force during a roll", "Proper bank for specific speed"], a: 1, f: "Coordination is the fusion of roll and yaw to maintain axial magnitude. shadow stays aligned." },
+                    { q: "Which control is 'Primary' for establishing flight path?", o: ["Rudder", "Ailerons", "Elevator"], a: 2, f: "The elevator controls pitch about the lateral axis, establishing your flight path." },
+                    { q: "What is 'Adverse Yaw'?", o: ["Torque reaction", "Yaw in direction of turn", "Yaw in opposite direction of turn"], a: 2, f: "Induced drag on rising wing pulls nose away from turn. Rudder is the stabilizer." }
+                ]
+            },
+            "02": { 
+                title: "Angle of Attack", 
+                questions: [
+                    { q: "A stall occurs when the wing exceeds its:", o: ["Maximum Speed", "Critical Angle of Attack", "Minimum Altitude"], a: 1, f: "Stalls are purely aerodynamic. Exceed the critical angle, and airflow detaches." },
+                    { q: "In a 60-degree level turn, the stall speed increases by:", o: ["20%", "40%", "10%"], a: 1, f: "Load factor at 60 deg is 2Gs. Stall speed increases by sqrt of load factor (~41%)." },
+                    { q: "The first step of stall recovery is:", o: ["Apply full power", "Decrease angle of attack", "Level wings"], a: 1, f: "The ONLY way to un-stall a wing is to reduce angle of attack. Gravity is tool one." }
+                ]
+            },
+            "03": { 
+                title: "Energy Management", 
+                questions: [
+                    { q: "Altitude is which form of flight energy?", o: ["Kinetic", "Potential", "Thermal"], a: 1, f: "Altitude is potential energy. Speed is kinetic. Manage the budget." },
+                    { q: "Low and Slow on approach. What is the first priority?", o: ["Pitch for altitude", "Power for altitude", "Pitch for speed"], a: 1, f: "Pitch for airspeed, power for altitude. If low, you need a magnitude of power." }
+                ]
+            },
+            "04": { title: "The Atmosphere", questions: [{ q: "Standard lapse rate is?", o: ["2°C/1000ft", "5°C/1000ft", "1°C/100ft"], a: 0, f: "Temperature drops 2 degrees per thousand." }]},
+            "05": { title: "Intuitive Nav", questions: [{ q: "Primary risk of 'Chasing the Needle'?", o: ["Battery drain", "Loss of situational awareness", "Signal loss"], a: 1, f: "Navigate visually first. Magnitude is the world, not the screen." }]},
+            "06": { title: "Airspace Logic", questions: [{ q: "Class D entry requirement?", o: ["Clearance to land", "Two-way radio comms", "Squawk 1200"], a: 1, f: "Two-way comms open the doorway." }]},
+            "07": { title: "PIC Psychology", questions: [{ q: "The 'S' in IMSAFE stands for?", o: ["Stability", "Stress", "Speed"], a: 1, f: "Stress is friction. Ground yourself before the plane." }]},
+            "08": { title: "Checkride Mode", questions: [{ q: "Core focus of the ACS?", o: ["Technical math", "Safe decision making", "Maximum speed"], a: 1, f: "Judgment is the metric." }]}
+        };
+
+        const selectorView = document.getElementById('selector-view');
+        const quizView = document.getElementById('quiz-view');
+        const resultView = document.getElementById('result-view');
+        const moduleList = document.getElementById('module-list');
+        const nextBtn = document.getElementById('next-btn');
+
+        let currentModule = null;
+        let currentQuestionIdx = 0;
+        let score = 0;
+
+        Object.keys(moduleData).forEach(id => {
+            const btn = document.createElement('button');
+            btn.className = 'module-selector p-10 rounded-[2.5rem] bg-white/5 border border-white/5 text-left hover:border-blue-600 hover:bg-blue-600/5 group';
+            btn.innerHTML = `
+                <div class="text-4xl font-black text-white/10 italic group-hover:text-blue-600/30 mb-6 transition">${id}</div>
+                <div class="text-xl font-bold uppercase tracking-tighter">${moduleData[id].title}</div>
+                <div class="text-[9px] font-black uppercase text-gray-500 mt-4 tracking-widest">Initialize Assessment</div>
+            `;
+            btn.onclick = () => startQuiz(id);
+            moduleList.appendChild(btn);
+        });
+
+        function startQuiz(id) {
+            currentModule = moduleData[id];
+            currentQuestionIdx = 0; score = 0;
+            selectorView.classList.add('hidden');
+            quizView.classList.remove('hidden');
+            document.getElementById('quiz-meta').classList.remove('hidden');
+            document.getElementById('current-module-title').innerText = currentModule.title;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = currentModule.questions[currentQuestionIdx];
+            document.getElementById('question-text').innerText = q.q;
+            document.getElementById('progress-fill').style.width = `${((currentQuestionIdx+1)/currentModule.questions.length)*100}%`;
+            document.getElementById('progress-text').innerText = `Unit ${currentQuestionIdx+1} // ${currentModule.questions.length}`;
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = ''; document.getElementById('feedback-area').classList.add('hidden'); nextBtn.classList.add('hidden');
+            q.o.forEach((opt, idx) => {
+                const b = document.createElement('button');
+                b.className = 'option-btn p-8 rounded-2xl text-left text-sm font-bold uppercase tracking-widest';
+                b.innerText = opt; b.onclick = () => checkAnswer(idx); grid.appendChild(b);
+            });
+        }
+
+        function checkAnswer(idx) {
+            const q = currentModule.questions[currentQuestionIdx];
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+            if (idx === q.a) { btns[idx].classList.add('correct'); score++; }
+            else { btns[idx].classList.add('wrong'); btns[q.a].classList.add('correct'); }
+            document.getElementById('feedback-text').innerText = q.f;
+            document.getElementById('feedback-area').classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < currentModule.questions.length) loadQuestion();
+            else showResults();
+        }
+
+        function showResults() {
+            quizView.classList.add('hidden'); resultView.classList.remove('hidden');
+            const percent = Math.round((score / currentModule.questions.length) * 100);
+            document.getElementById('score-percent').innerText = percent;
+        }
+    </script>
+</body>
+</html>
