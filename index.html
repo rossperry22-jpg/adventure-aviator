@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Aviator | Intuition-First Ground School</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Grotesk:wght@300;700&display=swap');
+        
+        body { 
+            background-color: #ffffff; 
+            color: #000000; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        h1, h2, h3, .heading { font-family: 'Space Grotesk', sans-serif; }
+        
+        .module-card {
+            border: 1px solid #f0f0f0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #ffffff;
+        }
+
+        .module-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.1);
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at 70% 30%, rgba(37, 99, 235, 0.05), transparent);
+        }
+
+        .nav-link {
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #999;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- AA Header -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl px-12 py-8 flex justify-between items-center border-b border-gray-100">
+        <div class="flex items-center gap-10">
+            <h1 class="text-xl font-black uppercase tracking-tighter italic text-blue-600">Adventure Aviator</h1>
+            <div class="hidden lg:flex gap-8">
+                <a href="#" class="nav-link">Curriculum</a>
+                <a href="#" class="nav-link">Test Prep</a>
+                <a href="#" class="nav-link">The Vault</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-8">
+            <div class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-6 py-2 rounded-full">Enroll Now</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-64 pb-32 px-12 md:px-24 hero-bg border-b border-gray-50">
+        <div class="max-w-5xl">
+            <div class="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600 mb-8">Award-Winning Ground School // V1.0</div>
+            <h2 class="text-7xl md:text-9xl font-black tracking-tighter uppercase mb-12 leading-[0.9]">Master the <br><span class="italic text-gray-300">Physics.</span></h2>
+            <p class="text-2xl text-gray-400 font-light leading-relaxed max-w-3xl mb-16">
+                Outclassing the memorization model. We build intuitive pilots through energy management, angle of attack mastery, and high-magnitude visual training.
+            </p>
+            <div class="flex gap-8">
+                <button class="bg-black text-white px-16 py-6 text-xs font-black uppercase tracking-[0.3em] hover:bg-blue-600 transition shadow-2xl">Start Course // $247</button>
+                <button class="border border-gray-200 px-16 py-6 text-xs font-black uppercase tracking-[0.3em] hover:bg-black hover:text-white transition">Free Checkride Map</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 8 Module Preview -->
+    <section class="py-32 px-12 md:px-24 max-w-[1600px] mx-auto">
+        <div class="mb-24">
+            <h3 class="text-[10px] font-black uppercase tracking-[0.4em] text-gray-300 mb-4">The Intuition Syllabus</h3>
+            <h4 class="text-4xl font-black uppercase tracking-tighter italic">8 Modules to Mastery</h4>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="module-grid">
+            <!-- Modules injected here -->
+        </div>
+    </section>
+
+    <script>
+        const modules = [
+            { id: "01", title: "Control First", desc: "Primary vs secondary coordination. Rudder discipline and visual cues." },
+            { id: "02", title: "Angle of Attack", desc: "The lie of airspeed. Breaking stall fear with intuitive physics." },
+            { id: "03", title: "Energy Mgmt", desc: "Pitch + Power relationships. Trading altitude for kinetic potential." },
+            { id: "04", title: "Atmosphere", desc: "Wind behavior and density altitude. The air you fly through." },
+            { id: "05", title: "Intuitive Nav", desc: "Situational awareness over gadgets. Cross-country decision making." },
+            { id: "06", title: "Clear Airspace", desc: "Behavioral rules, not shapes. Talking to ATC with confidence." },
+            { id: "07", title: "Legal/PIC", desc: "The human side of flying. IMSAFE and personal minimums." },
+            { id: "08", title: "Checkride Mode", desc: "Oral exam mindset. Teach-it-back confidence for the ACS." }
+        ];
+
+        const grid = document.getElementById('module-grid');
+        modules.forEach(m => {
+            const card = document.createElement('div');
+            card.className = 'module-card p-10 rounded-3xl flex flex-col h-full';
+            card.innerHTML = `
+                <div class="text-4xl font-black text-blue-600/20 mb-8">${m.id}</div>
+                <h4 class="text-xl font-bold uppercase tracking-tight mb-4">${m.title}</h4>
+                <p class="text-sm text-gray-400 font-light leading-relaxed flex-1">${m.desc}</p>
+                <div class="mt-8 pt-6 border-t border-gray-50 text-[9px] font-black uppercase tracking-widest text-gray-300">Phase 01 Locked</div>
+            `;
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
