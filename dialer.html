@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VECTOR | COMMAND DIALER v5.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #0f0f0f;
+            --border: #1a1a1a;
+            --accent: #d4af37; /* Vector Gold */
+            --text-main: #ffffff;
+            --text-dim: #666;
+            --glow: rgba(212, 175, 55, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px; }
+
+        /* Header Area */
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .logo { 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
+            font-size: 14px; 
+            text-transform: uppercase; 
+            color: var(--accent);
+        }
+
+        .system-status { display: flex; gap: 30px; align-items: center; }
+        .status-item { font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+        .status-item span { color: var(--accent); margin-left: 5px; }
+
+        /* Coordination Protocol (Script) */
+        .protocol {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1px;
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .protocol::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent);
+        }
+        .protocol h2 { 
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px; 
+            color: var(--accent); 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            margin-bottom: 20px; 
+        }
+        .protocol p { font-size: 24px; font-weight: 400; line-height: 1.4; color: #ddd; }
+        .protocol b { color: #fff; font-weight: 700; border-bottom: 1px solid var(--accent); }
+
+        /* Leads Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 40px var(--glow);
+            transform: translateY(-5px);
+        }
+
+        .card-header { margin-bottom: 25px; }
+        .badge { 
+            display: inline-block;
+            font-size: 9px; 
+            font-weight: 900; 
+            color: var(--accent); 
+            border: 1px solid var(--accent);
+            padding: 4px 10px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        .company { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 5px; }
+        .meta { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; }
+
+        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+        .data-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; }
+        .data-value { font-size: 12px; font-weight: 500; color: #eee; }
+
+        .intel-block { margin-top: 25px; background: rgba(255,255,255,0.02); padding: 20px; }
+        .intel-block h4 { font-size: 9px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 2px; }
+        .intel-block p { font-size: 13px; line-height: 1.6; color: #999; }
+
+        .action-btn {
+            display: block;
+            margin-top: 30px;
+            background: #fff;
+            color: #000;
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .action-btn:hover { background: var(--accent); }
+
+        #clock { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">VECTOR // SYSTEM COMMAND</div>
+        <div class="system-status">
+            <div class="status-item">COORD: <span>ROSS PERRY</span></div>
+            <div class="status-item">PULSE: <span>ACTIVE</span></div>
+            <div id="clock">00:00:00 EST</div>
+        </div>
+    </header>
+
+    <div class="protocol">
+        <h2>ACTIVE COORDINATION SCRIPT // GEN12 REFRESH</h2>
+        <p>"Hi, I'm <b>Ross Perry</b>. I need to speak with your <b>IT Director</b> regarding the <b>2026 HPE Gen12 refresh</b>. I'm coordinating a sync to verify your compute infrastructure is prioritize for the Q3 modernization window."</p>
+    </div>
+
+    <div class="grid">
+        <!-- LEAD 01 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="badge">URGENT // REFRESH OPEN</div>
+                <div class="company">Sea Lion Holdings, Ltd.</div>
+                <div class="meta">Hooper Bay, AK • Service Provider</div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Infrastructure</span>
+                <span class="data-value">HPE ProLiant IB</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Status</span>
+                <span class="data-value">Legacy Node Drift</span>
+            </div>
+            <div class="intel-block">
+                <h4>Vector Intelligence</h4>
+                <p>Scaling requirements for 2026 are high. Focus on cost-mitigation before Q3 DRAM price hikes. Gen12 provides 3x efficiency jump.</p>
+            </div>
+            <a href="tel:19077584708" class="action-btn">Initialize Sync</a>
+        </div>
+
+        <!-- LEAD 02 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="badge">SEC // COMPLIANCE ALERT</div>
+                <div class="company">Ibw Financial Corporation</div>
+                <div class="meta">Washington, DC • Banking</div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Infrastructure</span>
+                <span class="data-value">Hybrid IB/Cloud</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Status</span>
+                <span class="data-value">Security Vulnerability Gap</span>
+            </div>
+            <div class="intel-block">
+                <h4>Vector Intelligence</h4>
+                <p>Tightening financial regulations for Q3. Gen12 Compute Ops Management automates the compliance loop. High leverage.</p>
+            </div>
+            <a href="tel:12027222000" class="action-btn">Initialize Sync</a>
+        </div>
+
+        <!-- LEAD 03 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="badge">CRITICAL // DATA LOAD</div>
+                <div class="company">C-SPAN (NCSC)</div>
+                <div class="meta">Washington, DC • Media</div>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Infrastructure</span>
+                <span class="data-value">High-Res Archival</span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">Status</span>
+                <span class="data-value">Capacity Threshold Error</span>
+            </div>
+            <div class="intel-block">
+                <h4>Vector Intelligence</h4>
+                <p>Election cycle archival requirements. Current redundancy cannot handle the Q4 load. Gen12 is the only viable path.</p>
+            </div>
+            <a href="tel:12027373220" class="action-btn">Initialize Sync</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const options = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        document.getElementById('clock').innerText = now.toLocaleTimeString('en-US', options) + ' EST';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+</script>
+
+</body>
+</html>
