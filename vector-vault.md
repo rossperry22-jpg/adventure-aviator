@@ -8,6 +8,14 @@ Use these direct links to share with your friend or post to Instagram immediatel
 *   **Status:** High-Information Magnitude
 *   **Link:** [https://rossperry22-jpg.github.io/adventure-aviator/death-of-textbook.mp4](https://rossperry22-jpg.github.io/adventure-aviator/death-of-textbook.mp4)
 
+### 🎬 Video 2: POV Landing (Aspiration Hook)
+*   **Status:** Ultra-High Fidelity / 4K
+*   **Link:** [https://rossperry22-jpg.github.io/adventure-aviator/aspiration-pov-landing.mp4](https://rossperry22-jpg.github.io/adventure-aviator/aspiration-pov-landing.mp4)
+
+### 🎬 Video 3: Split-Second Decision (Interaction Hook)
+*   **Status:** Gamified High-Retention
+*   **Link:** [https://rossperry22-jpg.github.io/adventure-aviator/impossible-turn-decision.mp4](https://rossperry22-jpg.github.io/adventure-aviator/impossible-turn-decision.mp4)
+
 ### 🖼️ Image 1: Cinematic Stall Cockpit
 *   **Status:** Aesthetic High-Fidelity
 *   **Link:** [https://rossperry22-jpg.github.io/adventure-aviator/adventure-aviator-demo.png](https://rossperry22-jpg.github.io/adventure-aviator/adventure-aviator-demo.png)
